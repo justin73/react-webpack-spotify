@@ -16,10 +16,25 @@ const config = {
     path: BUILD_DIR,
     filename: 'bundle.js'
   },
+  // module: {
+  //   // loaders: [
+  //   //   { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
+  //   //   { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ }
+  //   // ]
+  //   rules: [{ test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ }]
+  // },
   module: {
-    loaders: [
-      { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
-      { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ }
+    rules: [
+      { test: /\.jsx$/, use: [{loader: 'babel-loader'}], exclude: /node_modules/ },
+      { test: /\.js$/, use: [{loader: 'babel-loader'}], exclude: /node_modules/ },
+      {
+        test: /\.scss$/,
+        loaders: [
+          require.resolve('style-loader'),
+          require.resolve('css-loader'),
+          require.resolve('sass-loader')
+        ]
+      }
     ]
   },
   plugins: [HtmlWebpackPluginConfig]
